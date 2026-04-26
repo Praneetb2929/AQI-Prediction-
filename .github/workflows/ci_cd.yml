@@ -48,4 +48,18 @@ jobs:
         push: true
         tags: praneetz/aqi-app:latest
 
+    # -------------------------
+    # 🚀 DEPLOY ON EC2
+    # -------------------------
 
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ubuntu
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          docker pull yourusername/aqi-app:latest
+          docker stop aqi-container || true
+          docker rm aqi-container || true
+          docker run -d -p 8501:8501 --name aqi-container praneetz/aqi-app:latest
