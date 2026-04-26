@@ -59,7 +59,7 @@ jobs:
         username: ubuntu
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
-          docker pull yourusername/aqi-app:latest
+          docker pull praneetz/aqi-app:latest
           docker stop aqi-container || true
           docker rm aqi-container || true
           docker run -d -p 8501:8501 --name aqi-container praneetz/aqi-app:latest
